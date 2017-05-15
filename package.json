@@ -46,7 +46,9 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "angular": "^1.6.4",
     "body-parser": "^1.17.1",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "firebase": "^3.9.0"
   }
 }
