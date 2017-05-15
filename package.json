@@ -1,0 +1,52 @@
+{
+  "name": "andela21-team-b-dlc-tracker",
+  "version": "1.0.0",
+  "description": "a tracking system that helps learners keep track of their learning goals",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vynessa/andela21-team-b-dlc-tracker.git"
+  },
+  "keywords": [
+    "tracking",
+    "system",
+    "distributed",
+    "learning",
+    "solution",
+    "goals",
+    "node.js",
+    "express",
+    "webpack",
+    "gulp",
+    "ecmascript6"
+  ],
+  "author": "Team B",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vynessa/andela21-team-b-dlc-tracker/issues"
+  },
+  "homepage": "https://github.com/Vynessa/andela21-team-b-dlc-tracker#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-webpack": "^1.5.0",
+    "json-loader": "^0.5.4",
+    "style-loader": "^0.17.0",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2"
+  }
+}
