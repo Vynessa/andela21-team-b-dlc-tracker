@@ -8,7 +8,10 @@
     "node": true,
     "es6": true,
     "mocha": true,
-    "jasmine": true
+    "jquery": true
+  },
+  "globals": {
+    "document": true
   },
   "rules": {
     "one-var": 0,
