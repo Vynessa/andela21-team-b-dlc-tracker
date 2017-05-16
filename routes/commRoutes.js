@@ -8,7 +8,7 @@ const db = firebase.database();
 firebase.initializeApp(config);
 
 const checkRole = (req, res, next) => {
-  if (req.user.role !== 'learning facilitator') {
+  if (req.user.role !== 'superadmin') {
     return res.sendStatus(403);
   }
   next();
