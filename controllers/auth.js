@@ -12,7 +12,8 @@ module.exports.register = (req, res) => {
     password = req.body.password,
     state = req.body.state,
     country = req.body.country,
-    phone = req.body.phone;
+    phone = req.body.phone,
+    communities = {};
 
   fireBase.createUserWithEmailAndPassword(email, password)
     .then((user) => {
