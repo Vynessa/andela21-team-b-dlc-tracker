@@ -104,3 +104,5 @@ router.post('/:comm/:id', (req, res) => {
     });
   }
 });
+
+export default router;
