@@ -10,9 +10,14 @@ dotenv.config({ path: '.env' });
 const db = firebase.database();
 
 const app = express();
+
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 // Append user details to the request object
 app.use((req, res, next) => {
   const user = firebase.auth().currentUser;
@@ -30,6 +35,9 @@ app.listen(port, () => {
   console.log(`Server running at ${port}`);
 });
 
+app.get('/', (req, res) => {
+  res.render('index');
+});
 app.post('/register', auth.register);
 app.post('/login', auth.login);
 app.get('/signOut', auth.signOut);
