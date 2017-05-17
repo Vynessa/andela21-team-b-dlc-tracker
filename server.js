@@ -27,10 +27,10 @@ app.use((req, res, next) => {
       next();
     });
   } else {
-    res.status(401).redirect('/');
+    next();
   }
 });
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5050;
 app.listen(port, () => {
   console.log(`Server running at ${port}`);
 });
