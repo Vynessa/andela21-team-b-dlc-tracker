@@ -3,8 +3,8 @@ import firebase from '../helpers/firebase';
 
 const db = firebase.database();
 const firebaseAuth = firebase.auth();
-const communitiesRef = db.ref('communities');
 const modulesRef = db.ref('modules');
+const userRef = db.ref('users');
 
 const router = express.Router();
 
@@ -12,6 +12,7 @@ router.get('/:comm', (req, res) => {
   const community = req.params.comm;
   const user = firebaseAuth.currentUser;
   if (user) {
+    const userId = user.userId;
     const userInfo = req.user;
     const requestedCommunity = userInfo.communities[community];
     if (requestedCommunity !== undefined) {
@@ -32,7 +33,8 @@ router.get('/:comm', (req, res) => {
           active: true,
           completed: false
         };
-        userInfo.communities[community] = newCommunity;
+        userRef.child(`/${userId}/communities/${community}`).set(newCommunity)
+          .then(res.redirect(`/${community}`));
       });
     }
   }
@@ -48,7 +50,8 @@ router.get('/:comm/:id', (req, res) => {
   if (user) {
     // User is signed in.
     const userInfo = req.user;
-    const requestedCommunity = userInfo.communities[community]; // The community the student is requesting data for
+    // The community the student is requesting data for
+    const requestedCommunity = userInfo.communities[community];
     if (requestedCommunity !== undefined) { // Check to see if student belongs to the community
       const studentModuleLevel = requestedCommunity.completedModules; // Get student's progress in the community
       // Check if student has completed previous levels
@@ -72,20 +75,29 @@ router.get('/:comm/:id', (req, res) => {
   }
 });
 
+// Taking the assessment for a module
 router.post('/:comm/:id', (req, res) => {
   const community = req.params.comm,
     moduleId = req.params.id,
     user = firebaseAuth.currentUser;
   if (user) {
-    communitiesRef.child(`/${community}/modules/`).once('value', (data) => {
-      const allModules = data.val(),
-        requestedModule = allModules[moduleId],
+    modulesRef.child(`/${community}`).once('value', (modulesForCommunityData) => {
+      const modulesForCommunity = modulesForCommunityData.val(),
+        requestedModule = modulesForCommunity[moduleId],
         questions = requestedModule.questions;
       for (const questionNumber in questions) {
         if (questions.hasOwnProperty(questionNumber)) {
           if (req.body[questionNumber] !== requestedModule.answers[questionNumber]) {
             const error = { error: 'You did not get all questions correctly' };
-            return res.render('module', allModules.description, requestedModule, error);
+            // Make answers invisible before sending
+            modulesForCommunity.answers = null;
+            return res.render('module', modulesForCommunity, requestedModule, error);
+          } else {
+            // Load the next module, after sending a sweet alert
+            const nextModuleId = moduleId + 1;
+            const nextModule = modulesForCommunity[nextModuleId];
+            modulesForCommunity.answers = null;
+            res.render('module', modulesForCommunity, nextModule);
           }
         }
       }

@@ -13,7 +13,8 @@ module.exports.register = (req, res) => {
     state = req.body.state,
     country = req.body.country,
     phone = req.body.phone,
-    communities = {};
+    communities = {},
+    role = 'user';
 
   fireBase.createUserWithEmailAndPassword(email, password)
     .then((user) => {
@@ -27,7 +28,9 @@ module.exports.register = (req, res) => {
         state,
         country,
         email,
-        password
+        password,
+        communities,
+        role
       });
     })
     .then(res.redirect('/dashboard'))
@@ -57,7 +60,7 @@ module.exports.login = (req, res) => {
 module.exports.signOut = (req, res) => {
   fireBase.signOut()
     .then(() => {
-      res.redirect('/');
+      res.redirect('/index');
     })
     .catch((err) => {
       const errorMessage = err.message;
