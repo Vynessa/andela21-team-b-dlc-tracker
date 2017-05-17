@@ -66,9 +66,6 @@ const activateDeactivateUser = (req, res) => {
   }
 
 
-const seeProgress = (req, res) => {
-    const {userId, commName}
-  }
 
 app.use(checkRole);
 router.get('/:modId', getModule);
