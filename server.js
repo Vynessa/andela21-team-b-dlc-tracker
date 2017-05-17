@@ -6,7 +6,7 @@ import modules from './routes/modules';
 import dashboard from './routes/dashboard';
 import firebase from './helpers/firebase';
 
-dotenv.config({ path: '.env' });
+dotenv.config();
 const db = firebase.database();
 
 const app = express();
