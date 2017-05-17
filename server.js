@@ -1,7 +1,9 @@
-import dotenv from 'dotenv';
+import firebase from 'firebase';
 import express from 'express';
+import config from './firebaseConfig.json';
+import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
-import router from './routes/;
+import adminrouter from './routes/admin';
 
 dotenv.config();
 const app = express();
@@ -17,17 +19,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-  if (req.params.userId) {
-    db.ref(`users/${req.params.userId}`).on('value', (snapshot) => {
+  const user = firebase.auth().currentUser;
+  if (user) {
+    db.ref(`users/${user.uid}`).on('value', (snapshot) => {
       req.user = snapshot.val();
       next();
     });
   } else {
-    next();
+    res.status(401).redirect('/');
   }
 });
-
-app.use('/', router);
+app.use('/', adminrouter);
 
 const port = app.get('PORT');
 const server = app.listen(process.env.PORT || port, () => {
@@ -36,4 +38,4 @@ const server = app.listen(process.env.PORT || port, () => {
 
 
 // load the routes
-export default app;
+export default server;
