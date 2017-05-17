@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import express from 'express';
 import config from './firebaseConfig.json';
 import dotenv from 'dotenv';
@@ -7,6 +7,8 @@ import adminrouter from './routes/admin';
 
 dotenv.config();
 const app = express();
+const db = database.firebase();
+
 
 switch (process.env.NODE_ENV) {
   case 'TEST': app.set('PORT', process.env.PORT_TEST); break;
