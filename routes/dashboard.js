@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
     const userData = req.user;
     // Communities a user belongs to
     const userCommunities = userData.communities;
-    
     const communityDescriptions = [];
     communitiesRef.once('value', (data) => {
       const communities = data.val();
