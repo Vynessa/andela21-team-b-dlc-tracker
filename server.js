@@ -6,9 +6,9 @@ import modules from './routes/modules';
 import dashboard from './routes/dashboard';
 import firebase from './helpers/firebase';
 
+dotenv.config({ path: '.env' });
 const db = firebase.database();
 
-dotenv.config();
 const app = express();
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,8 +33,7 @@ app.listen(port, () => {
 app.post('/register', auth.register);
 app.post('/login', auth.login);
 app.get('/signOut', auth.signOut);
-app.get('/module', modules.getModule);
-app.post('/module', modules.submitAssesment);
+app.get('/module', modules);
 app.get('/dashboard', dashboard);
 
 
