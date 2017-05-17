@@ -25,8 +25,8 @@ app.use((req, res, next) => {
     res.status(401).redirect('/');
   }
 });
-app.listen(process.env.PORT_TEST, () => {
-  console.log(`Server running at ${process.env.PORT_TEST}`);
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`Server running at ${process.env.PORT}`);
 });
 
 app.post('/register', auth.register);
