@@ -21,7 +21,7 @@ router.get('/dashboard', (req, res) => {
           communityDescriptions.push(community.description);
         }
       }
-      res.render('dashboard', { userData, userCommunities, communities: communityDescriptions });
+      res.json(userData);
     });
   } else {
     res.redirect('/login');
