@@ -24,7 +24,10 @@ router.get('/modules/:comm', (req, res) => {
         const modulesForCommunity = modulesForCommunityData.val();
         const requestedModule = modulesForCommunity[userLevel];
         const error = null;
-        res.render('dashboard', requestedModule, modulesForCommunity, error);
+        for (let i = 1; i < modulesForCommunity.length; i += 1) {
+          modulesForCommunity[i].assessment.answers = null;
+        }
+        res.send({ modulesForCommunity });
       });
     } else {
       // Add him to the community
@@ -74,7 +77,7 @@ router.get('/modules/:comm/:id', (req, res) => {
           const modulesForCommunity = modulesForCommunityData.val();
           const highestModuleLevel = modulesForCommunity[studentModuleLevel];
           const error = 'You do not have access to this module yet';
-          res.render('dashboard', highestModuleLevel, modulesForCommunity, error);
+          res.send(highestModuleLevel);
         });
       }
     }
@@ -104,8 +107,10 @@ router.post('/module/:comm/:id', (req, res) => {
             // Load the next module, after sending a sweet alert
             const nextModuleId = moduleId + 1;
             const nextModule = modulesForCommunity[nextModuleId];
-            modulesForCommunity.answers = null;
-            res.render('module', modulesForCommunity, nextModule);
+            for (let i = 1; i < modulesForCommunity.length; i += 1) {
+              modulesForCommunity[i].assessment.answers = null;
+            }
+            res.send({ nextModule });
           }
         }
       }
