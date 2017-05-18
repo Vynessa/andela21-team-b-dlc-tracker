@@ -62,6 +62,10 @@
                   </div>
                 </div>
                 <div class="card-reveal">
+                    <p>
+                      <span class="card-title grey-text text-darken-4"><i class="mdi-navigation-close right"></i></span>
+                    </p>
+
                     <p><i class="mdi-action-perm-identity cyan-text text-darken-2"></i>
                     <span class = 'in-block'>{{user['name']}}</span>
                     </p>
@@ -112,7 +116,7 @@
                 <!--/ Profile About Details  -->
 
                 </div>
-                <div class="col s12 m3">
+                <div class="col s12 m3" ng-show="hasCommunity('JavaScript'')">
                 <div id="profile-page-wall-share" class="row">
                   <div class="col s12">
                   <div id="profile-card" class="card">
@@ -140,19 +144,20 @@
                       <hr>
                       <p>Title : Intro to Javascript</p>
                       <hr>
-                      <p class='click-card'><i class="mdi-action-label"></i>Module 1</p>
-                      <p class='click-card'><i class="mdi-action-label"></i>Module 2</p>
+                      <p ng-repeat='module in community.modules' class='click-card' mod-id={{module.id}} mod-details>
+                        <i class="mdi-action-label"></i>{{module.title}}</p>
+                      <!--<p class='click-card'><i class="mdi-action-label"></i>Module 2</p>
                       <p class='click-card'><i class="mdi-action-label"></i>Module 3</p>
                       <p class='click-card'><i class="mdi-action-label"></i> Module 4</p>
                       <p class='click-card'><i class="mdi-action-label"></i> Module 5</p><p>
                           </p><p><i class="mdi-navigation-check"></i> Assessment
                             </p><p>
-                    </p></div>
+                    </p>--></div>
                   </div>
                   </div>
                   </div>
                   </div>
-                  <div class="col s12 m3">
+                  <div class="col s12 m3" ng-show="hasCommunity('Python'')">
                 <div id="profile-page-wall-share" class="row">
                   <div class="col s12">
                   <div id="profile-card" class="card">
@@ -193,7 +198,7 @@
                   </div>
                   </div>
                   </div>
-                  <div class="col s12 m3">
+                  <div class="col s12 m3" ng-show="hasCommunity('JavaScript'')">
                 <div id="profile-page-wall-share" class="row">
                   <div class="col s12">
                   <div id="profile-card" class="card">
