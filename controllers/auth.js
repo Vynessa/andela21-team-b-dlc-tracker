@@ -13,6 +13,7 @@ module.exports.register = (req, res) => {
     password = req.body.password,
     state = req.body.state,
     country = req.body.country,
+    location = { state, country },
     phone = req.body.phone,
     communities = {},
     role = 'user';
@@ -26,8 +27,7 @@ module.exports.register = (req, res) => {
         userId,
         firstName,
         lastName,
-        state,
-        country,
+        location,
         email,
         communities,
         role
@@ -44,24 +44,17 @@ module.exports.register = (req, res) => {
 module.exports.login = (req, res) => {
   const email = req.body.email,
     password = req.body.password;
-  
-  console.log(req.body);
   fireBase.signInWithEmailAndPassword(email, password)
     .then((user) => {
       res.redirect('/dashboard');
     })
     .catch((error) => {
       const errorcode = error.code;
-      const errorMessage = error.message;
-      console.log('HARARAR');
-      console.log(errorcode);
       if (errorcode === 'auth/weak-password') {
-        console.log('HERE HRERE');
         res.redirect('/login');
       } else if (errorcode === 'auth/user-not-found') {
         res.redirect('/register');
       } else {
-        console.log('HERE');
         res.redirect('/login');
       }
     });
