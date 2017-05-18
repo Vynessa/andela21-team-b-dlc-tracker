@@ -19,32 +19,23 @@ module.exports.register = (req, res) => {
 
   fireBase.createUserWithEmailAndPassword(email, password)
     .then((user) => {
-      console.log(ref);
+      // const userId = user.uid;
       const userId = user.uid;
-      console.log(userId);
-      usersRef.child(userId).set({
+      const userRef = ref.child('users/' + userId);
+      userRef.set({
         userId,
         firstName,
         lastName,
-        phone,
         state,
         country,
         email,
-        password,
         communities,
         role
+      }).then(() => {
+        res.redirect('/');
+      }).catch((err) => {
+        res.redirect('/register');
       });
-    })
-    .then(res.redirect('/'))
-    .catch((error) => {
-      const errorcode = error.code,
-        errorMessage = error.message;
-        if(errorcode === 'auth/weak-password') {
-          console.log('The password is too weak.');
-          res.redirect('/register');
-        } else {
-          return res.redirect('/register');
-        }
     });
 };
 
