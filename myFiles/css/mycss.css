@@ -39,6 +39,19 @@
     cursor: pointer;
 }
 
-#errr {
+#pencil {
     margin-left: 400px;
 }
+#dropdown1 {
+    width: 150%;
+    position: relative;
+}
+.material-icons {
+    font-family: 'Material Icons';
+    margin-top:30;
+    font-weight: ;
+    font-style: normal;
+    font-size: 18px;
+    display: inline-block;
+    white-space: nowrap;
+    direction: ltr;
