@@ -4,24 +4,27 @@ import firebase from '../helpers/firebase';
 const db = firebase.database();
 const firebaseAuth = firebase.auth();
 const modulesRef = db.ref('modules');
-const userRef = db.ref('users');
+const usersRef = db.ref('users');
 
 const router = express.Router();
 
-router.get('/:comm', (req, res) => {
+router.get('/modules/:comm', (req, res) => {
   const community = req.params.comm;
   const user = firebaseAuth.currentUser;
   if (user) {
-    const userId = user.userId;
+    const userId = user.uid;
     const userInfo = req.user;
+    if (userInfo.communities === undefined) {
+      userInfo.communities = {};
+    }
     const requestedCommunity = userInfo.communities[community];
     if (requestedCommunity !== undefined) {
-      const userLevel = requestedCommunity.completedModules;  // This needs to be converted to  string
+      const userLevel = requestedCommunity.completedModules;
       modulesRef.child(community).once('value', (modulesForCommunityData) => {
         const modulesForCommunity = modulesForCommunityData.val();
         const requestedModule = modulesForCommunity[userLevel];
         const error = null;
-        res.render(requestedModule, modulesForCommunity, error);
+        res.render('dashboard', requestedModule, modulesForCommunity, error);
       });
     } else {
       // Add him to the community
@@ -33,16 +36,19 @@ router.get('/:comm', (req, res) => {
           active: true,
           completed: false
         };
-        userRef.child(`/${userId}/communities/${community}`).set(newCommunity)
-          .then(res.redirect(`/${community}`));
+        usersRef.child(`/${userId}/communities/${community}`).set(newCommunity)
+          .then(res.redirect(`/modules/${community}/1`))
+          .catch((err) => {
+          });
       });
     }
+  } else {
+    res.redirect('/login');
   }
 });
 
-
 // Requesting a module
-router.get('/:comm/:id', (req, res) => {
+router.get('/modules/:comm/:id', (req, res) => {
   const community = req.params.comm,
     moduleNumber = req.param.id;
 
@@ -61,22 +67,24 @@ router.get('/:comm/:id', (req, res) => {
           const requestedModule = modulesForCommunity[moduleNumber];
           modulesForCommunity.answers = null;
           const error = null;
-          res.render(requestedModule, modulesForCommunity, error);
+          res.render('dashboard', requestedModule, modulesForCommunity, error);
         });
       } else {
         modulesRef.child(community).once('value', (modulesForCommunityData) => {
           const modulesForCommunity = modulesForCommunityData.val();
           const highestModuleLevel = modulesForCommunity[studentModuleLevel];
           const error = 'You do not have access to this module yet';
-          res.render(highestModuleLevel, modulesForCommunity, error);
+          res.render('dashboard', highestModuleLevel, modulesForCommunity, error);
         });
       }
     }
+  } else {
+    res.redirect('/login');
   }
 });
 
 // Taking the assessment for a module
-router.post('/:comm/:id', (req, res) => {
+router.post('/module/:comm/:id', (req, res) => {
   const community = req.params.comm,
     moduleId = req.params.id,
     user = firebaseAuth.currentUser;
