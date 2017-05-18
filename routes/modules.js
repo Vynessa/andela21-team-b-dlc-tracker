@@ -5,6 +5,7 @@ const db = firebase.database();
 const firebaseAuth = firebase.auth();
 const modulesRef = db.ref('modules');
 const usersRef = db.ref('users');
+const communitiesRef = db.ref('communities');
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.get('/modules/:comm', (req, res) => {
       const userLevel = requestedCommunity.completedModules;
       modulesRef.child(community).once('value', (modulesForCommunityData) => {
         const modulesForCommunity = modulesForCommunityData.val();
-        const requestedModule = modulesForCommunity[userLevel];
+        const requestedModule = modulesForCommunity[userLevel + 1];
         const error = null;
         for (let i = 1; i < modulesForCommunity.length; i += 1) {
           modulesForCommunity[i].assessment.answers = null;
@@ -39,6 +40,11 @@ router.get('/modules/:comm', (req, res) => {
           active: true,
           completed: false
         };
+        // Increment the count in the communities node
+        const studentsCountRef = communitiesRef.child(`${community}/studentsCount`);
+        studentsCountRef.transaction((currentCount) => {
+          return currentCount + 1;
+        });
         usersRef.child(`/${userId}/communities/${community}`).set(newCommunity)
           .then(res.redirect(`/modules/${community}/1`))
           .catch((err) => {
@@ -64,7 +70,7 @@ router.get('/modules/:comm/:id', (req, res) => {
     if (requestedCommunity !== undefined) { // Check to see if student belongs to the community
       const studentModuleLevel = requestedCommunity.completedModules; // Get student's progress in the community
       // Check if student has completed previous levels
-      if (studentModuleLevel >= moduleNumber) {
+      if (studentModuleLevel >= moduleNumber && moduleNumber <= requestedCommunity.totalModules) {
         modulesRef.child(community).once('value', (modulesForCommunityData) => {
           const modulesForCommunity = modulesForCommunityData.val();
           const requestedModule = modulesForCommunity[moduleNumber];
@@ -75,7 +81,7 @@ router.get('/modules/:comm/:id', (req, res) => {
       } else {
         modulesRef.child(community).once('value', (modulesForCommunityData) => {
           const modulesForCommunity = modulesForCommunityData.val();
-          const highestModuleLevel = modulesForCommunity[studentModuleLevel];
+          const highestModuleLevel = modulesForCommunity[studentModuleLevel + 1];
           const error = 'You do not have access to this module yet';
           res.send(highestModuleLevel);
         });
