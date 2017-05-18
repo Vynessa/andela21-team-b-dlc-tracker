@@ -14,12 +14,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="../public/css/main.css">
+    <link rel="stylesheet" href="css/main.css">
     
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-    <script src="../public/js/index.js"></script>
-    <script src="../public/js/register.js"></script>
+    <!--<script src="../public/js/index.js"></script>
+    <script src="../public/js/register.js"></script>-->
   </head>
 
   </body>
@@ -34,53 +34,53 @@
             <div class="row margin">
               <div class="input-field col s12">
                 <i class="mdi-social-person-outline prefix"></i>
-                <input class="validate" id="firstname" type="text">
+                <input class="validate" name="firstName" id="firstname" type="text">
                 <label for="firstname" data-error="wrong" data-success="right" class="center-align">First Name</label>
               </div>
             </div>
             <div class="row margin">
               <div class="input-field col s12">
                 <i class="mdi-social-person-outline prefix"></i>
-                <input class="validate" id="lastname" type="text">
+                <input class="validate" name="lastName" id="lastname" type="text">
                 <label for="asttname" data-error="wrong" data-success="right" class="center-align">Last Name</label>
               </div>
             </div>
             <div class="row margin">
               <div class="input-field col s12">
                 <i class="mdi-social-person-outline prefix"></i>
-                <input class="validate" id="state" type="text">
+                <input class="validate" name="state" id="state" type="text">
                 <label for="state" data-error="wrong" data-success="right" class="center-align">State</label>
               </div>
             </div>
             <div class="row margin">
               <div class="input-field col s12">
                 <i class="mdi-social-person-outline prefix"></i>
-                <input class="validate" id="country" type="text">
+                <input class="validate" name="country" id="country" type="text">
                 <label for="country" data-error="wrong" data-success="right" class="center-align">Country</label>
               </div>
             </div>
             <div class="row margin">
               <div class="input-field col s12">
                 <i class="mdi-social-person-outline prefix"></i>
-                <input class="validate" id="email" type="email">
+                <input class="validate" name="email" id="email" type="email">
                 <label for="email" data-error="wrong" data-success="right" class="center-align">Email</label>
               </div>
             </div>
             <div class="row margin">
               <div class="input-field col s12">
                 <i class="mdi-action-lock-outline prefix"></i>
-                <input id="password" type="password">
+                <input name="password" id="password" type="password">
                 <label for="password">Password</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12">
-                <a href="register.ejs" class="btn waves-effect waves-light col s12">Register</a>
+                <button id="register" type="submit" class="btn waves-effect waves-light col s12">Register</button>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6 m6 l6">
-                <p class="margin medium-small">Already have an account? <a href="login.ejs">Login!</a></p>
+                <p class="margin medium-small">Already have an account? <a href="/login">Login!</a></p>
               </div>        
             </div>
           </form>

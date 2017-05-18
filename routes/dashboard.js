@@ -7,7 +7,7 @@ const router = express.Router();
 const communitiesRef = db.ref('communities');
 
 // dashboard
-router.get('/', (req, res) => {
+router.get('/dashboard', (req, res) => {
   const user = firebaseAuth.currentUser;
   if (user) {
     const userData = req.user;
@@ -23,6 +23,8 @@ router.get('/', (req, res) => {
       }
       res.json(userData);
     });
+  } else {
+    res.redirect('/login');
   }
 });
 
