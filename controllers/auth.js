@@ -13,38 +13,29 @@ module.exports.register = (req, res) => {
     password = req.body.password,
     state = req.body.state,
     country = req.body.country,
+    location = { state, country },
     phone = req.body.phone,
     communities = {},
     role = 'user';
 
   fireBase.createUserWithEmailAndPassword(email, password)
     .then((user) => {
-      console.log(ref);
+      // const userId = user.uid;
       const userId = user.uid;
-      console.log(userId);
-      usersRef.child(userId).set({
+      const userRef = ref.child('users/' + userId);
+      userRef.set({
         userId,
         firstName,
         lastName,
-        phone,
-        state,
-        country,
+        location,
         email,
-        password,
         communities,
         role
+      }).then(() => {
+        res.redirect('/');
+      }).catch((err) => {
+        res.redirect('/register');
       });
-    })
-    .then(res.redirect('/'))
-    .catch((error) => {
-      const errorcode = error.code,
-        errorMessage = error.message;
-        if(errorcode === 'auth/weak-password') {
-          console.log('The password is too weak.');
-          res.redirect('/register');
-        } else {
-          return res.redirect('/register');
-        }
     });
 };
 
@@ -53,24 +44,17 @@ module.exports.register = (req, res) => {
 module.exports.login = (req, res) => {
   const email = req.body.email,
     password = req.body.password;
-  
-  console.log(req.body);
   fireBase.signInWithEmailAndPassword(email, password)
     .then((user) => {
       res.redirect('/dashboard');
     })
     .catch((error) => {
       const errorcode = error.code;
-      const errorMessage = error.message;
-      console.log('HARARAR');
-      console.log(errorcode);
       if (errorcode === 'auth/weak-password') {
-        console.log('HERE HRERE');
         res.redirect('/login');
       } else if (errorcode === 'auth/user-not-found') {
         res.redirect('/register');
       } else {
-        console.log('HERE');
         res.redirect('/login');
       }
     });
