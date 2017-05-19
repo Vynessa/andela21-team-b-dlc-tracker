@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html ng-app = 'dlctrackerApp' ng-controller="appCtrl" ng-init="getUser()">
+<head>
+  <title>Dlc-Tracker</title>
+  <link href="../css/materialize.min.css" rel="stylesheet" type="text/css" media="screen" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
+  <script src = "../js/helperFunctions.js"></script>
+  <script src = "../js/windows.js" type='text/javascript'></script>
+  <link href="../css/dashboard.css" rel="stylesheet" type="text/css" media="screen" />
+  <link href = "../css/windows.css" rel="stylesheet" type="text/css"></script>
+</head>
+<body id = 'tl-design-template'>
+<div class="row">
+<nav class="teal">
+  <div class="col s12">
+  <a href="#!" class="brand-logo">Dlc-Tracker</a>
+                    <ul class="right hide-on-med-and-down">
+                      <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Admin</a>
+                      <div id="modal1" class="modal">
+                      <div class="modal-content">
+                        <div class="row">
+                        <h5>Communities:</h5>
+                        <select>
+                          <option value="volvo">Volvo</option>
+                          <option value="saab">Saab</option>
+                          <option value="mercedes">Mercedes</option>
+                          <option value="audi">Audi</option>
+                        </select>
+                        </div>
+                        <hr>
+                        <h5>Modules:</h5>
+                          <li>Reading Text:</li></br>
+                          <li>video course:</li></br>
+                          <li>Assessment:</li></br>
+                          <hr>
+                        </div>
+                      <div class="modal-footer">
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-teal btn">create</a>
+                      </div>
+                    </div>   
+                     <span id="exit">logout<a class="btn-floating enabled"><i class="material-icons">input</i></a>
+                    </ul>
+                    </div>
+                  </nav>
+                  <div id="profile-page-header" class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="../images/user-profile-bg.jpg" alt="user background">                    
+                </div>
+                <figure class="card-profile-image">
+                    <img src="../images/avatar.png" alt="profile image" class="circle z-depth-2 responsive-img activator">
+                </figure>
+                <div class="card-content">
+                  <div class="row">                    
+                    <div class="col s3 offset-s2">                        
+                        <h4 class="card-title grey-text text-darken-4">Hello {{user.firstName}}</h4>                     
+                    </div>
+                    <div class="col s2 center-align">
+                        <h4 class="card-title grey-text text-darken-4">{{communitiesCount}}</h4>
+                        <p class="medium-small grey-text">Number of communities</p>                        
+                    </div>
+                    <div id="pencil" class="col s1 right-align">
+                      <a class="btn-floating activator waves-effect waves-light darken-2 right">
+                          <i class="mdi-action-perm-identity"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-reveal">
+                    <p>
+                      <span class="card-title grey-text text-darken-4"><i class="mdi-navigation-close right"></i></span>
+                    </p>
+
+                    <p><i class="mdi-action-perm-identity cyan-text text-darken-2"></i>
+                    <span class = 'in-block'>{{user['firstName']}}</span>
+                    </p>
+                    <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i>  
+                    <span class = 'in-block'>{{user['phone-no']}}</span>
+                    </p>
+                    <p><i class="mdi-communication-email cyan-text text-darken-2"></i>  
+                    <span class = 'in-block'>{{user['email']}}</span>
+                    </p>
+                    <p><i class="mdi-social-cake cyan-text text-darken-2"></i>  
+                    <span class = 'in-block'>{{user['role']}}</span>
+                    </p>
+                </div>
+            </div>
+
+            <div id="profile-page-sidebar" class="col s12 m3">
+                <!-- Profile About  -->
+                <div class="card light-blue darken-2">
+                  <div class="card-content white-text center-align">
+                    <p class="card-title"><i class="mdi-social-group-add"></i> {{userLength}}</p>
+                    <p>Students</p>
+                  </div>                  
+                </div>
+                <!-- Profile About  -->
+
+                </div>
+                <div class="col s12 m3">
+                <div id="profile-page-wall-share" class="row">
+                  <div class="col s12">
+                  <div id="profile-card" class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                      <img class="activator" src="../images/js-banner.jpg" alt="user bg">
+                    </div>
+                    <div class="card-content">
+                      <img src="../images/js-logo.png" alt="" class="responsive-img activator card-profile-image">
+                      <a class="btn-floating activator btn-move-up waves-effect orange waves-light darken-2 right">
+                        <i class="mdi-editor-mode-edit"></i>
+                      </a>
+                      
+                      <span class="card-title activator grey-text text-darken-4">Javascript</span>
+                      <user-in-community 
+                      usercomm = "user.communities['javascript']"
+                      ng-show = "user.role==='user'">
+                      </user-in-community>
+                      <admin-in-community
+                      comm = "communities['javascript']"
+                      moduleslength = "communities['javascript'].modules.length - 1"
+                      ng-show = "user.role==='admin'"></admin-in-country>
+                  		<div class="progress">
+                         <div class="determinate" style="width: 70%">70%</div>   
+                    </div>
+
+                    </div>
+                    <div class="card-reveal">
+                      <span class="card-title grey-text text-darken-4">JavaScript<i class="mdi-navigation-close right"></i></span>
+                      <hr>
+                      <p>{{communities['javascript']['description']['details']}}</p>
+                      <hr>
+                      <p modal-click ng-repeat="module in communities['javascript'].modules.slice(1)" class='click-card' mod-id={{module.id}} mod-details>
+                        <i class="mdi-action-label"></i>{{module.title}}</p>
+                        </p><p><i class="mdi-navigation-check"></i> Assessment</p><p></p>
+                      </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="col s12 m3">
+                <div id="profile-page-wall-share" class="row">
+                  <div class="col s12">
+                  <div id="profile-card" class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                      <img class="activator" src="../images/ruby.jpg" alt="user bg">
+                    </div>
+                    <div class="card-content">
+                      <img src="../images/ruby-icon.png" alt="" class="responsive-img activator card-profile-image">
+                      <a class="btn-floating activator btn-move-up waves-effect waves-light red darken-4 darken-2 right">
+                        <i class="mdi-editor-mode-edit"></i>
+                      </a>
+
+                      <span class="card-title activator grey-text text-darken-4">Ruby</span>
+                      <user-in-community 
+                      usercomm = "user.communities['ruby']"
+                      ng-show = "user.role==='user'">
+                      </user-in-community>
+                      <admin-in-community
+                      comm = "communities['ruby']"
+                      moduleslength = "communities['ruby'].modules.length - 1"
+                      ng-show = "user.role==='admin'"></admin-in-country>
+                  		<div class="progress">
+                         <div class="determinate" style="width: 70%">70%</div>   
+                    </div>
+
+                    </div>
+                     <div class="card-reveal">
+                      <span class="card-title grey-text text-darken-4">Ruby <i class="mdi-navigation-close right"></i></span>
+                      <hr>
+                      <p>{{communities['ruby']['description']['details']}}</p>
+                      <hr>
+                      <p modal-click ng-repeat="module in communities['ruby'].modules.slice(1)" class='click-card' mod-id={{module.id}} mod-details>
+                      <i class="mdi-action-label"></i>{{module.title}}</p>
+                      </p><p><i class="mdi-navigation-check"></i> Assessment
+                      </p><p>
+                    </p></div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+
+            </div>
+  <footer class="page-footer teal darken-1">
+    <div class="footer-copyright">
+      <div class="container">
+        <span>Copyright © 2015 <a class="grey-text text-lighten-4" href="http://themeforest.net/user/geekslabs/portfolio?ref=geekslabs" target="_blank">Andela</a> All rights reserved.</span>
+        <span class="right"> Design and Developed by <a class="grey-text text-lighten-4" href="http://geekslabs.com/">Andla-21-Team-B</a></span>
+        </div>
+    </div>
+  </footer>
+    <!-- END FOOTER -->    
+    <!--materialize js-->
+    <script src="../js/module-modals.js" type='text/javascript'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+    <script src="../js/controllers.js"></script>
+    <script src="../js/directives.js"></script>
+    <script src="../js/factories.js"></script>
+</body>
+</html>
