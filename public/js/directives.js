@@ -62,7 +62,10 @@ angular.module('dlctrackerApp')
     elem.on('click', (event) => {
       event.preventDefault();
       event.stopImmediatePropagation();
-      webwindow.init().openWindow('window-1', 'Javascript Community');
+      const window = webwindow.init().openWindow('window-1', 'Module');
+      webwindow.renderView('window-1', {
+        templateUrl: '../html/modal-box.html'
+      });
     });
   };
   return {
