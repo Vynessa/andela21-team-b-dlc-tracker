@@ -15,12 +15,12 @@ module.exports.register = (req, res) => {
     country = req.body.country,
     location = { state, country },
     phone = req.body.phone,
-    communities : {
-      javascript : {
-        active : true,
-        completed : false,
-        completedModules : 0,
-          totalModules : 2
+    communities = {
+      javascript: {
+        active: true,
+        completed: false,
+        completedModules: 0,
+          totalModules: 2
         },
         ruby : {
           active : true,
