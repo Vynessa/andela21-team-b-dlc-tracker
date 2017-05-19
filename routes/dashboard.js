@@ -8,9 +8,9 @@ const communitiesRef = db.ref('communities');
 
 // dashboard
 router.get('/dashboard', (req, res) => {
-  const user = firebaseAuth.currentUser;
+  const user = req.session.user;
   if (user) {
-    const userData = req.user;
+    const userData = user;
     // Communities a user belongs to
     const userCommunities = userData.communities;
     const communityDescriptions = [];
@@ -21,7 +21,7 @@ router.get('/dashboard', (req, res) => {
           communityDescriptions.push(community.description);
         }
       }
-      res.json(userData);
+      res.render('dashboard', { userData, userCommunities, communities: communityDescriptions });
     });
   } else {
     res.redirect('/login');
