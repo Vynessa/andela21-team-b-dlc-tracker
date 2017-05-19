@@ -8,14 +8,27 @@ const fireBase = firebase.auth();
 // register user
 module.exports.register = (req, res) => {
   const firstName = req.body.firstName,
-    lastName = req.body.lastName,
+    lastName = req.bgit ody.lastName,
     email = req.body.email,
     password = req.body.password,
     state = req.body.state,
     country = req.body.country,
     location = { state, country },
     phone = req.body.phone,
-    communities = {},
+    communities : {
+      javascript : {
+        active : true,
+        completed : false,
+        completedModules : 0,
+          totalModules : 2
+        },
+        ruby : {
+          active : true,
+          completed : false,
+          completedModules : 0,
+          totalModules : 2
+        }
+      },
     role = 'user';
 
   fireBase.createUserWithEmailAndPassword(email, password)
