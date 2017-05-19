@@ -28,9 +28,21 @@ angular.module('dlctrackerApp')
       return callback(communities);
    }); 
   }
-  this.getModules = (callback) => {
+  this.getModule = (callback) => {
     apiCall('GET', 'url', (moduleObj) => {
       return callback(moduleObj);
+    });
+  }
+  this.createCommunities = (commName, details, callback) => {
+    apiCall('POST', `/api/comm/${commName}`, {
+      description: {
+        details,
+        name: commName,
+      },
+      estimatedTime: 0,
+      studentsCount: 0
+    }, (resData) => {
+      return callback(resData);
     });
   }
 });
