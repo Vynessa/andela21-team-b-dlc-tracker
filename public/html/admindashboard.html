@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app = 'dlctrackerApp' ng-controller="appCtrl">
+<html ng-app = 'dlctrackerApp' ng-controller="appCtrl" ng-init="getUser()">
 <head>
   <title>Dlc-Tracker</title>
   <link href="../css/materialize.min.css" rel="stylesheet" type="text/css" media="screen" />
@@ -54,7 +54,7 @@
                         <h4 class="card-title grey-text text-darken-4">0</h4>
                         <p class="medium-small grey-text">Completed modules</p>                        
                     </div>                    
-                    <div class="col s1 right-align" ng-click = "getUser()">
+                    <div class="col s1 right-align">
                       <a class="btn-floating activator waves-effect waves-light darken-2 right">
                           <i class="mdi-action-perm-identity"></i>
                       </a>
@@ -67,7 +67,7 @@
                     </p>
 
                     <p><i class="mdi-action-perm-identity cyan-text text-darken-2"></i>
-                    <span class = 'in-block'>{{user['name']}}</span>
+                    <span class = 'in-block'>{{user['firstName']}}</span>
                     </p>
                     <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i>  
                     <span class = 'in-block'>{{user['phone-no']}}</span>
@@ -78,7 +78,6 @@
                     <p><i class="mdi-social-cake cyan-text text-darken-2"></i>  
                     <span class = 'in-block'>{{user['role']}}</span>
                     </p>
-                    <p><i class="mdi-device-airplanemode-on cyan-text text-darken-2"></i></p>
                 </div>
             </div>
 
@@ -86,7 +85,7 @@
                 <!-- Profile About  -->
                 <div class="card light-blue darken-2">
                   <div class="card-content white-text center-align">
-                    <p class="card-title"><i class="mdi-social-group-add"></i> 0</p>
+                    <p class="card-title"><i class="mdi-social-group-add"></i> {{userLength}}</p>
                     <p>Students</p>
                   </div>                  
                 </div>
@@ -116,7 +115,7 @@
                 <!--/ Profile About Details  -->
 
                 </div>
-                <div class="col s12 m3" ng-show="hasCommunity('JavaScript'')">
+                <div class="col s12 m3">
                 <div id="profile-page-wall-share" class="row">
                   <div class="col s12">
                   <div id="profile-card" class="card">
@@ -128,77 +127,35 @@
                       <a class="btn-floating activator btn-move-up waves-effect orange waves-light darken-2 right">
                         <i class="mdi-editor-mode-edit"></i>
                       </a>
-
+                      
                       <span class="card-title activator grey-text text-darken-4">Javascript</span>
-                      <p><i class="mdi-action-history"></i> 4h 12m</p>
-                      <p><i class="mdi-action-perm-identity"></i> +100 Students enrolled</p>
-                      <p><i class="mdi-action-wallet-travel"></i> 5 Modules</p>
-
+                      <user-in-community 
+                      usercomm = "user.communities['javascript']"
+                      ng-show = "user.role==='user'">
+                      </user-in-community>
+                      <admin-in-community
+                      comm = "communities['javascript']"
+                      moduleslength = "communities['javascript'].modules.length - 1"
+                      ng-show = "user.role==='admin'"></admin-in-country>
                   		<div class="progress">
                          <div class="determinate" style="width: 70%">70%</div>   
                     </div>
 
                     </div>
                     <div class="card-reveal">
-                      <span class="card-title grey-text text-darken-4">Brief Info : <i class="mdi-navigation-close right"></i></span>
+                      <span class="card-title grey-text text-darken-4">JavaScript<i class="mdi-navigation-close right"></i></span>
                       <hr>
-                      <p>Title : Intro to Javascript</p>
+                      <p>{{communities['javascript']['description']['details']}}</p>
                       <hr>
-                      <p ng-repeat='module in community.modules' class='click-card' mod-id={{module.id}} mod-details>
+                      <p modal-click ng-repeat="module in communities['javascript'].modules.slice(1)" class='click-card' mod-id={{module.id}} mod-details>
                         <i class="mdi-action-label"></i>{{module.title}}</p>
-                      <!--<p class='click-card'><i class="mdi-action-label"></i>Module 2</p>
-                      <p class='click-card'><i class="mdi-action-label"></i>Module 3</p>
-                      <p class='click-card'><i class="mdi-action-label"></i> Module 4</p>
-                      <p class='click-card'><i class="mdi-action-label"></i> Module 5</p><p>
-                          </p><p><i class="mdi-navigation-check"></i> Assessment
-                            </p><p>
-                    </p>--></div>
+                        </p><p><i class="mdi-navigation-check"></i> Assessment</p><p></p>
+                      </div>
                   </div>
                   </div>
                   </div>
                   </div>
-                  <div class="col s12 m3" ng-show="hasCommunity('Python'')">
-                <div id="profile-page-wall-share" class="row">
-                  <div class="col s12">
-                  <div id="profile-card" class="card">
-                    <div class="card-image waves-effect waves-block waves-light">
-                      <img class="activator" src="../images/python.jpg" alt="user bg">
-                    </div>
-                    <div class="card-content">
-                      <!-- <img src="images/js-logo.png" alt="" class="responsive-img activator card-profile-image"> -->
-                      <a class="btn-floating activator btn-move-up waves-effect dark-blue waves-light darken-2 right">
-                        <i class="mdi-editor-mode-edit"></i>
-                      </a>
-
-                      <span class="card-title activator grey-text text-darken-4">Python</span>
-                      <p><i class="mdi-action-history"></i> 4h 12m</p>
-                      <p><i class="mdi-action-perm-identity"></i> +100 Students enrolled</p>
-                      <p><i class="mdi-action-wallet-travel"></i> 5 Modules</p>
-
-                  		<div class="progress">
-                         <div class="determinate" style="width: 70%">70%</div>   
-                    </div>
-
-                    </div>
-                     <div class="card-reveal">
-                      <span class="card-title grey-text text-darken-4">Brief Info : <i class="mdi-navigation-close right"></i></span>
-                      <hr>
-                      <p>Title : Intro to Python</p>
-                      <hr>
-                      <p><i class="mdi-action-label"></i>Module 1</p>
-                      <p><i class="mdi-action-label"></i>Module 2</p>
-                      <p><i class="mdi-action-label"></i>Module 3</p>
-                      <p><i class="mdi-action-label"></i> Module 4</p>
-                      <p><i class="mdi-action-label"></i> Module 5
-                        </p><p>
-                          </p><p><i class="mdi-navigation-check"></i> Assessment
-                            </p><p>
-                    </p></div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
-                  <div class="col s12 m3" ng-show="hasCommunity('JavaScript'')">
+                  <div class="col s12 m3">
                 <div id="profile-page-wall-share" class="row">
                   <div class="col s12">
                   <div id="profile-card" class="card">
@@ -212,10 +169,14 @@
                       </a>
 
                       <span class="card-title activator grey-text text-darken-4">Ruby</span>
-                      <p><i class="mdi-action-history"></i> 4h 12m</p>
-                      <p><i class="mdi-action-perm-identity"></i> +100 Students enrolled</p>
-                      <p><i class="mdi-action-wallet-travel"></i> 5 Modules</p>
-
+                      <user-in-community 
+                      usercomm = "user.communities['ruby']"
+                      ng-show = "user.role==='user'">
+                      </user-in-community>
+                      <admin-in-community
+                      comm = "communities['ruby']"
+                      moduleslength = "communities['ruby'].modules.length - 1"
+                      ng-show = "user.role==='admin'"></admin-in-country>
                   		<div class="progress">
                          <div class="determinate" style="width: 70%">70%</div>   
                     </div>
@@ -224,16 +185,12 @@
                      <div class="card-reveal">
                       <span class="card-title grey-text text-darken-4">Brief Info : <i class="mdi-navigation-close right"></i></span>
                       <hr>
-                      <p>Title : Intro to Ruby</p>
+                      <p>{{communities['ruby']['description']['details']}}</p>
                       <hr>
-                      <p><i class="mdi-action-label"></i>Module 1</p>
-                      <p><i class="mdi-action-label"></i>Module 2</p>
-                      <p><i class="mdi-action-label"></i>Module 3</p>
-                      <p><i class="mdi-action-label"></i> Module 4</p>
-                      <p><i class="mdi-action-label"></i> Module 5
-                        </p><p>
-                          </p><p><i class="mdi-navigation-check"></i> Assessment
-                            </p><p>
+                      <p modal-click ng-repeat="module in communities['ruby'].modules.slice(1)" class='click-card' mod-id={{module.id}} mod-details>
+                      <i class="mdi-action-label"></i>{{module.title}}</p>
+                      </p><p><i class="mdi-navigation-check"></i> Assessment
+                      </p><p>
                     </p></div>
                   </div>
                   </div>
