@@ -18,14 +18,30 @@
   <div class="col s12">
   <a href="#!" class="brand-logo">Dlc-Tracker</a>
                     <ul class="right hide-on-med-and-down">
-                      <li><a href="sass.html"><i class="mdi-action-search"></i></a>
-                      </li>
-                      <li><a href="components.html"><i class="mdi-action-view-module"></i></a>
-                      </li>
-                      <li><a href="javascript.html"><i class="mdi-navigation-refresh"></i></a>
-                      </li>
-                      <li><a href="mobile.html"><i class="mdi-navigation-more-vert"></i></a>
-                      </li>
+                      <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Admin</a>
+                      <div id="modal1" class="modal">
+                      <div class="modal-content">
+                        <div class="row">
+                        <h5>Communities:</h5>
+                        <select>
+                          <option value="volvo">Volvo</option>
+                          <option value="saab">Saab</option>
+                          <option value="mercedes">Mercedes</option>
+                          <option value="audi">Audi</option>
+                        </select>
+                        </div>
+                        <hr>
+                        <h5>Modules:</h5>
+                          <li>Reading Text:</li></br>
+                          <li>video course:</li></br>
+                          <li>Assessment:</li></br>
+                          <hr>
+                        </div>
+                      <div class="modal-footer">
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-teal btn">create</a>
+                      </div>
+                    </div>   
+                     <span id="exit">logout<a class="btn-floating enabled"><i class="material-icons">input</i></a>
                     </ul>
                     </div>
                   </nav>
@@ -39,22 +55,13 @@
                 <div class="card-content">
                   <div class="row">                    
                     <div class="col s3 offset-s2">                        
-                        <h4 class="card-title grey-text text-darken-4">clint andela</h4>
-                        <p class="medium-small grey-text">software Dev</p>                        
+                        <h4 class="card-title grey-text text-darken-4">Hello {{user.firstName}}</h4>                     
                     </div>
                     <div class="col s2 center-align">
-                        <h4 class="card-title grey-text text-darken-4">0+</h4>
+                        <h4 class="card-title grey-text text-darken-4">{{communitiesCount}}</h4>
                         <p class="medium-small grey-text">Number of communities</p>                        
                     </div>
-                    <div class="col s2 center-align">
-                        <h4 class="card-title grey-text text-darken-4">0</h4>
-                        <p class="medium-small grey-text">Current module</p>                        
-                    </div>                    
-                    <div class="col s2 center-align">
-                        <h4 class="card-title grey-text text-darken-4">0</h4>
-                        <p class="medium-small grey-text">Completed modules</p>                        
-                    </div>                    
-                    <div class="col s1 right-align">
+                    <div id="pencil" class="col s1 right-align">
                       <a class="btn-floating activator waves-effect waves-light darken-2 right">
                           <i class="mdi-action-perm-identity"></i>
                       </a>
@@ -90,29 +97,6 @@
                   </div>                  
                 </div>
                 <!-- Profile About  -->
-
-                <!-- Profile About Details  -->
-                <ul id="profile-page-about-details" class="collection z-depth-1">
-                  <li class="collection-item">
-                    <div class="row">
-                      <div class="col s5 grey-text darken-1"><i class="mdi-action-wallet-travel"></i> Project</div>
-                      <div class="col s7 grey-text text-darken-4 right-align">ABC Name</div>
-                    </div>
-                  </li>
-                  <li class="collection-item">
-                    <div class="row">
-                      <div class="col s5 grey-text darken-1"><i class="mdi-social-poll"></i> Skills</div>
-                      <div class="col s7 grey-text text-darken-4 right-align">HTML, CSS</div>
-                    </div>
-                  </li>
-                  <li class="collection-item">
-                    <div class="row">
-                      <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Lives in</div>
-                      <div class="col s7 grey-text text-darken-4 right-align">NY, USA</div>
-                    </div>
-                  </li>
-                </ul>
-                <!--/ Profile About Details  -->
 
                 </div>
                 <div class="col s12 m3">
