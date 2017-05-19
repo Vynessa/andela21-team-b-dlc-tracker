@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import auth from './controllers/auth';
 import modules from './routes/modules';
 import dashboard from './routes/dashboard';
+import userCommunity from './routes/userCommRoutes'
+import user from './routes/userRoutes'
 import firebase from './helpers/firebase';
 
 dotenv.config();
@@ -56,6 +58,11 @@ app.get('/login', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('register');
 });
+app.get('/dashboard', (req, res) => {
+  res.sendFile(`${__dirname}/public/html/admindashboard.html`)
+})
+app.use('/api/user-community/', userCommunity);
+app.use('/api/user/', user);
 app.post('/register', auth.register);
 app.post('/login', auth.login);
 app.get('/signOut', auth.signOut);
