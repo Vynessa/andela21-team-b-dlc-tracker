@@ -25,8 +25,8 @@ const getCommunity = (req, res) => {
 };
 
 const createNewCommunity = (req, res) => {
-  const ref = db.ref('communities');
-  ref.push(req.body, (error) => {
+  const ref = db.ref(`communities/${req.params.commName}`);
+  ref.update(req.body, (error) => {
     if (!error) {
       return res.json(req.body);
     }
@@ -56,7 +56,7 @@ const deleteCommunity = (req, res) => {
 
 router.use(checkRole);
 router.get('/:commName', getCommunity);
-router.post('/', createNewCommunity);
+router.post('/:commName', createNewCommunity);
 router.put('/:commName', modifyCommunityProfile, getCommunity);
 router.delete('/:commName', deleteCommunity);
 
