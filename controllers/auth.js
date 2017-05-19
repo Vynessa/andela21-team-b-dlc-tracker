@@ -32,7 +32,7 @@ module.exports.register = (req, res) => {
         communities,
         role
       }).then(() => {
-        res.redirect('/');
+        res.redirect('/dashboard');
       }).catch((err) => {
         res.redirect('/register');
       });

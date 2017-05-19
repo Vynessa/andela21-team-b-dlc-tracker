@@ -15,7 +15,7 @@ const checkRole = (req, res, next) => {
 };
 
 const getCommunity = (req, res) => {
-  const ref = db.ref(`communities/${req.params.commId}`);
+  const ref = db.ref(`communities/${req.params.commName}`);
   ref.once('value', (snapshot) => {
     res.status(200).json(snapshot.val());
   })
@@ -35,7 +35,7 @@ const createNewCommunity = (req, res) => {
 };
 
 const modifyCommunityProfile = (req, res, next) => {
-  const ref = db.ref(`communities/${req.params.commId}`);
+  const ref = db.ref(`communities/${req.params.commName}`);
   ref.update(req.body, (error) => {
     if (!error) {
       return next();
@@ -45,7 +45,7 @@ const modifyCommunityProfile = (req, res, next) => {
 };
 
 const deleteCommunity = (req, res) => {
-  const ref = db.ref(`communities/${req.params.commId}`);
+  const ref = db.ref(`communities/${req.params.commName}`);
   ref.remove((error) => {
     if (error) {
       return res.json(error);
@@ -55,9 +55,9 @@ const deleteCommunity = (req, res) => {
 };
 
 router.use(checkRole);
-router.get('/:commId', getCommunity);
+router.get('/:commName', getCommunity);
 router.post('/', createNewCommunity);
-router.put('/:commId', modifyCommunityProfile, getCommunity);
-router.delete('/:commId', deleteCommunity);
+router.put('/:commName', modifyCommunityProfile, getCommunity);
+router.delete('/:commName', deleteCommunity);
 
 export default router;
