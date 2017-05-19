@@ -8,7 +8,7 @@ const fireBase = firebase.auth();
 // register user
 module.exports.register = (req, res) => {
   const firstName = req.body.firstName,
-    lastName = req.bgit ody.lastName,
+    lastName = req.body.lastName,
     email = req.body.email,
     password = req.body.password,
     state = req.body.state,
