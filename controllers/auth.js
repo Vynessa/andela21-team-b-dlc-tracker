@@ -20,7 +20,6 @@ module.exports.register = (req, res) => {
 
   fireBase.createUserWithEmailAndPassword(email, password)
     .then((user) => {
-      // const userId = user.uid;
       const userId = user.uid;
       const userRef = ref.child('users/' + userId);
       userRef.set({
@@ -46,6 +45,7 @@ module.exports.login = (req, res) => {
     password = req.body.password;
   fireBase.signInWithEmailAndPassword(email, password)
     .then((user) => {
+      req.session.user = user;
       res.redirect('/dashboard');
     })
     .catch((error) => {
@@ -64,7 +64,8 @@ module.exports.login = (req, res) => {
 module.exports.signOut = (req, res) => {
   fireBase.signOut()
     .then(() => {
-      res.redirect('/index');
+      req.session.user = null;
+      res.redirect('/');
     })
     .catch((err) => {
       const errorMessage = err.message;
