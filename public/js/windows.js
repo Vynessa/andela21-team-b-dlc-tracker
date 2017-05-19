@@ -126,6 +126,11 @@ const webwindow = new (class WebWindow {
     }
   }
 
+  renderView(windowId, {template=null, templateUrl=null, paramsDict=null} = {}) {
+    const view = document.getElementById(windowId);
+    updateView(view, template, templateUrl, paramsDict);
+  }
+
   closeAllWindows() {
     Array.prototype.forEach.call(this.rootWindow.children, (child) => {
       child.remove();
