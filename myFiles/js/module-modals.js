@@ -4,5 +4,7 @@ $(document).ready(() => {
     event.stopImmediatePropagation();
     webwindow.init().openWindow('window-1', 'Javascript Community');
   });
-});
+ $('.modal-trigger').leanModal();
+  });
+
 

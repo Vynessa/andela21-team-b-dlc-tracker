@@ -18,13 +18,19 @@
                     <div class="col s12">
                     <a href="#!" class="brand-logo">Dlc-Tracker</a>
                     <ul class="right hide-on-med-and-down">
-                     <a class='dropdown-button btn' href='#' data-activates='dropdown1'><i class="material-icons">note_add</i></a>
-                      <a id ='logout-button btn' href="#"<i class="material-icons">input</i></a>
-                        <ul id='dropdown1' class='dropdown-content'>
-                          <li><i class ="material-icons">storage</i>community</li>
-                          <li><i class="material-icons">view_module</i>modules</li>
-                          <li><i class="material-icons">border_color</i>Assessment</li>
-                        </ul>
+                      <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Admin</a>
+                      <div id="modal1" class="modal">
+                      <div class="modal-content">
+                        <h5>Communities:</h5>
+                        <hr>
+                        <h5>Modules:</h5>
+                        </div>
+                      <div class="modal-footer">
+                        <a href="#!" class=" modal-action modal-close waves-effect waves-teal btn">create</a>
+                      </div>
+                    </div>   
+                     <span id="exit">logout<a class="btn-floating enabled"><i class="material-icons">input</i></a>
+                     </ul>
                     </div>
                   </nav>
                   <div id="profile-page-header" class="card">

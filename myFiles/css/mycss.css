@@ -55,3 +55,9 @@
     display: inline-block;
     white-space: nowrap;
     direction: ltr;
+}
+
+div.modal-content {
+    color: black;
+    align-content: right 80px;
+}
