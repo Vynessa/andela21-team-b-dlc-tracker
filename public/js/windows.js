@@ -26,7 +26,7 @@ const webwindow = new (class WebWindow {
     <span class = "webwindow-window-title">:title</span>
     <i class="fa fa-window-restore"></i>
     <i class="fa fa-window-close"></i></div>
-    <div class ="webwindow-window-content"></div>`
+    <div id = 'content' class ="webwindow-window-content"></div>`
   }
 
   get windowCount() {
@@ -127,7 +127,7 @@ const webwindow = new (class WebWindow {
   }
 
   renderView(windowId, {template=null, templateUrl=null, paramsDict=null} = {}) {
-    const view = document.getElementById(windowId);
+    const view = document.getElementById('content');
     updateView(view, template, templateUrl, paramsDict);
   }
 
