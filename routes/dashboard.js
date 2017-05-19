@@ -10,7 +10,7 @@ const communitiesRef = db.ref('communities');
 router.get('/dashboard', (req, res) => {
   const user = res.session.user;
   if (user) {
-    const userData = req.user;
+    const userData = user;
     // Communities a user belongs to
     const userCommunities = userData.communities;
     const communityDescriptions = [];

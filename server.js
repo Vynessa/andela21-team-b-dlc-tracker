@@ -67,12 +67,6 @@ app.listen(port, () => {
   console.log(`Server running at ${port}`);
 });
 
-// const isLoggedIn = (req, res, next) => {
-//   if (!req.session.isLoggedIn) {
-//     res.redirect('/login');
-//   }
-//   next();
-// };
 
 app.get('/', (req, res) => {
   res.render('index');
