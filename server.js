@@ -63,7 +63,7 @@ app.use('/api/user-community/', userCommunity);
 app.use('/api/user/', user);
 app.post('/register', auth.register);
 app.post('/login', auth.login);
-app.get('/signOut', auth.signOut);
+app.get('/signout', auth.signOut);
 app.get('/modules', modules);
 app.get('/modules/:comm', modules);
 app.get('/modules/:comm/:id', modules);

@@ -64,7 +64,7 @@ module.exports.login = (req, res) => {
 module.exports.signOut = (req, res) => {
   fireBase.signOut()
     .then(() => {
-      res.redirect('/index');
+      res.redirect('/');
     })
     .catch((err) => {
       const errorMessage = err.message;
