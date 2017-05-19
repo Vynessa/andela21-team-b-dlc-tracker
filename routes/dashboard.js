@@ -8,9 +8,9 @@ const communitiesRef = db.ref('communities');
 
 // dashboard
 router.get('/dashboard', (req, res) => {
-  const user = req.session.user;
+  const user = res.session.user;
   if (user) {
-    const userData = user;
+    const userData = req.user;
     // Communities a user belongs to
     const userCommunities = userData.communities;
     const communityDescriptions = [];
@@ -21,7 +21,7 @@ router.get('/dashboard', (req, res) => {
           communityDescriptions.push(community.description);
         }
       }
-      res.render('dashboard', { userData, userCommunities, communities: communityDescriptions });
+      res.json(userData);
     });
   } else {
     res.redirect('/login');
