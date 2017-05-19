@@ -28,6 +28,7 @@ angular.module('dlctrackerApp', [])
   });
   dlctrackerService.getCommunities((resData) => {
     $scope.communities = resData;
+    $scope.communitiesCount = Object.keys(resData).length;
   });
   dlctrackerService.getUsers((resData) => {
     console.log(resData);
